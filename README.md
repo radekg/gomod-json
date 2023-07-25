@@ -20,7 +20,7 @@ mkdir -p /tmp/jsonnet-playground && cd /tmp/jsonnet-playground
 # Clone some program to build a Docker image from:
 git clone https://github.com/radekg/jsonnet-playground.git .
 # Find the direct jsonnet dependency, there should be only one:
-JSONNET_VERSION=$(gomod-json --path=./go.mod | yq '.Require[] | select(.Mod.Path == "github.com/google/go-jsonnet" and .Indirect == false) | .Mod.Version')
+export JSONNET_VERSION=$(gomod-json --path=./go.mod | yq '.Require[] | select(.Mod.Path == "github.com/google/go-jsonnet" and .Indirect == false) | .Mod.Version')
 # Use it to create a Docker image:
 docker build -t docker.io/radekg/jsonnet-playground:${JSONNET_VERSION}
 docker tag docker.io/radekg/jsonnet-playground:${JSONNET_VERSION} docker.io/radekg/jsonnet-playground:latest
